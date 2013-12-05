@@ -5,6 +5,10 @@
 
 import bigsuds
 
+#Delete pools, add pools to array, list_of_pools_to_delete, to delete more than one.
+def delete_a_pool(list_of_pools_to_delete,b):
+	b.LocalLB.Pool.delete_pool(pool_names = list_of_pools_to_delete)
+
 #Delete All Pools
 def delete_all_pool(b):
 	b.LocalLB.Pool.delete_all_pools()
@@ -36,6 +40,8 @@ def create_a_pool(b):
 	b.LocalLB.Pool.create_v2([pool_name],[load_balancing_method],[[{'port':port_used, 'address':address_of_member}]])
 	
 def main():
+	list_of_pools_to_delete = []
+
 	#Get the name of the host that we are working with, this is the F5 Machine
 	f5_hostname = raw_input("Please enter F5 hostname or IP address")
 	
@@ -47,12 +53,19 @@ def main():
 	print(list)
 
 	#To create a pool
-	create_a_pool(b)
+	#create_a_pool(b)
 	list = get_list_of_pools(f5_hostname,b)
 	print(list)
 
 	#Delete all pool
-	delete_all_pool(b)
+	#delete_all_pool(b)
+	list = get_list_of_pools(f5_hostname,b)
+	print(list)
+
+	#Delete a pool
+	pool_name = raw_input("Please enter the pool name you want to delete: ")
+	list_of_pools_to_delete.append(pool_name)
+	delete_a_pool(list_of_pools_to_delete,b)
 	list = get_list_of_pools(f5_hostname,b)
 	print(list)
 
