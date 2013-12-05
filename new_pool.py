@@ -5,6 +5,10 @@
 
 import bigsuds
 
+#Delete All Pools
+def delete_all_pool(b):
+	b.LocalLB.Pool.delete_all_pools()
+
 #Gets the list of the pools that currently exist for the F5 host listed.
 def get_list_of_pools(f5_hostname,b):
 	#Start bigip session with host
@@ -46,6 +50,12 @@ def main():
 	create_a_pool(b)
 	list = get_list_of_pools(f5_hostname,b)
 	print(list)
+
+	#Delete all pool
+	delete_all_pool(b)
+	list = get_list_of_pools(f5_hostname,b)
+	print(list)
+
 	
 
 if __name__ == '__main__':
