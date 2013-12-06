@@ -5,15 +5,23 @@
 
 import bigsuds
 
+def create_a_vip(b):
+	b.LocalLB.VirtualServer.create( \
+	definitions = [{'name': '/Common/vip10', 'address': '172.16.5.5', 'port': 80, 'protocol': 'PROTOCOL_TCP'}], \
+	wildmasks = ['255.255.255.255'], \
+	resources = [{'type': 'RESOURCE_TYPE_POOL', 'default_pool_name': '/Common/testpool'}], \
+	profiles = [[{'profile_context': 'PROFILE_CONTEXT_TYPE_ALL', 'profile_name': '/Common/tcp'}]] \
+	)
+
 #Disable a pools members
-def enable_pool_member():
+def enable_pool_member(b):
 	#replace hard coded values with variables, dictionaries, and arrays, tested this in python, and worked.
 	#array[0] = STATE_ENABLED
 	b.LocalLB.Pool.set_member_session_enabled_state(['test3'], [[{'address': '1.1.1.1', 'port': 88}]], session_states = [array])
 	pass
 
 #Disable a pools members
-def disable_pool_member():
+def disable_pool_member(b):
 	#replace same as above
 	#make array[0] = STATE_DISABLED
 	b.LocalLB.Pool.set_member_session_enabled_state(['test3'], [[{'address': '1.1.1.1', 'port': 88}]], session_states = [array])
