@@ -5,6 +5,27 @@
 
 import bigsuds
 
+#Disable a pools members
+def enable_pool_member():
+	#replace hard coded values with variables, dictionaries, and arrays, tested this in python, and worked.
+	#array[0] = STATE_ENABLED
+	b.LocalLB.Pool.set_member_session_enabled_state(['test3'], [[{'address': '1.1.1.1', 'port': 88}]], session_states = [array])
+	pass
+
+#Disable a pools members
+def disable_pool_member():
+	#replace same as above
+	#make array[0] = STATE_DISABLED
+	b.LocalLB.Pool.set_member_session_enabled_state(['test3'], [[{'address': '1.1.1.1', 'port': 88}]], session_states = [array])
+	pass
+
+#Add members to a pool, can add to multiple pools
+def add_members_to_pool(array_life,list_of_pool_names,b):
+	#Same as above, change the hard coded values to variables, but this works as tested.
+	b.LocalLB.Pool.set_member_session_enabled_state(['test3'], [[{'address': '1.1.1.1', 'port': 88}]])
+
+
+
 #Delete pools, add pools to array, list_of_pools_to_delete, to delete more than one.
 def delete_a_pool(list_of_pools_to_delete,b):
 	b.LocalLB.Pool.delete_pool(pool_names = list_of_pools_to_delete)
@@ -43,31 +64,45 @@ def main():
 	list_of_pools_to_delete = []
 
 	#Get the name of the host that we are working with, this is the F5 Machine
-	f5_hostname = raw_input("Please enter F5 hostname or IP address")
+	f5_hostname = raw_input("Please enter F5 hostname or IP address: ")
 	
 	#Start the session with the Host
 	b = bigsuds.BIGIP(hostname = f5_hostname)
 
-	#Check the list of pools
+	#Check the list of pools (works)
 	list = get_list_of_pools(f5_hostname,b)
 	print(list)
 
-	#To create a pool
+	#To create a pool (works)
 	#create_a_pool(b)
 	list = get_list_of_pools(f5_hostname,b)
 	print(list)
 
-	#Delete all pool
+	#Delete all pools (works)
 	#delete_all_pool(b)
 	list = get_list_of_pools(f5_hostname,b)
 	print(list)
 
-	#Delete a pool
-	pool_name = raw_input("Please enter the pool name you want to delete: ")
-	list_of_pools_to_delete.append(pool_name)
-	delete_a_pool(list_of_pools_to_delete,b)
-	list = get_list_of_pools(f5_hostname,b)
-	print(list)
+	##Delete a pool (works)
+	#pool_name = raw_input("Please enter the pool name you want to delete: ")
+	#list_of_pools_to_delete.append(pool_name)
+	#delete_a_pool(list_of_pools_to_delete,b)
+	#list = get_list_of_pools(f5_hostname,b)
+	#print(list)
+
+	#Add a member to a pool
+	list_of_pool_names = []
+	list_of_ports = []
+	list_of_members = []
+	array_life = []
+	x = "1.1.1.1"
+	y = 80
+	z = 'test'
+	y = long(y)
+	list_of_members.append(x)
+	list_of_members.append(y)
+	array_life.append(list_of_members)
+	#add_members_to_pool(array_life,list_of_pool_names,b)
 
 	
 
