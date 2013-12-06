@@ -5,7 +5,13 @@
 
 import bigsuds
 
+# Create a VIP
+# definitions
+# wildmask
+# Resources
+# Profiles
 def create_a_vip(b):
+	#Change for user input maybe? or possibly options with arguments?
 	b.LocalLB.VirtualServer.create( \
 	definitions = [{'name': '/Common/vip10', 'address': '172.16.5.5', 'port': 80, 'protocol': 'PROTOCOL_TCP'}], \
 	wildmasks = ['255.255.255.255'], \
