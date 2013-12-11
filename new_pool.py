@@ -13,7 +13,7 @@ import bigsuds
 def create_a_vip(b):
 	#Change for user input maybe? or possibly options with arguments?
 	b.LocalLB.VirtualServer.create( \
-	definitions = [{'name': '/Common/vip10', 'address': '172.16.5.5', 'port': 80, 'protocol': 'PROTOCOL_TCP'}], \
+	definitions = [{'name': '/Common/vip10', 'address': '11.1.1.1', 'port': 80, 'protocol': 'PROTOCOL_TCP'}], \
 	wildmasks = ['255.255.255.255'], \
 	resources = [{'type': 'RESOURCE_TYPE_POOL', 'default_pool_name': '/Common/testpool'}], \
 	profiles = [[{'profile_context': 'PROFILE_CONTEXT_TYPE_ALL', 'profile_name': '/Common/tcp'}]] \
@@ -84,13 +84,13 @@ def main():
 	b = bigsuds.BIGIP(hostname = f5_hostname)
 
 	#Check the list of pools (works)
-	list = get_list_of_pools(f5_hostname,b)
-	print(list)
+	#list = get_list_of_pools(f5_hostname,b)
+	#print(list)
 
 	#To create a pool (works)
 	#create_a_pool(b)
-	list = get_list_of_pools(f5_hostname,b)
-	print(list)
+	#list = get_list_of_pools(f5_hostname,b)
+	#print(list)
 
 	#Delete all pools (works)
 	#delete_all_pool(b)
@@ -105,19 +105,20 @@ def main():
 	#print(list)
 
 	#Add a member to a pool
-	list_of_pool_names = []
-	list_of_ports = []
-	list_of_members = []
-	array_life = []
-	x = "1.1.1.1"
-	y = 80
-	z = 'test'
-	y = long(y)
-	list_of_members.append(x)
-	list_of_members.append(y)
-	array_life.append(list_of_members)
+	#list_of_pool_names = []
+	#list_of_ports = []
+	#list_of_members = []
+	#array_life = []
+	#x = "1.1.1.1"
+	#y = 80
+	#z = 'test'
+	#y = long(y)
+	#list_of_members.append(x)
+	#list_of_members.append(y)
+	#array_life.append(list_of_members)
 	#add_members_to_pool(array_life,list_of_pool_names,b)
 
+	create_a_vip(b)
 	
 
 if __name__ == '__main__':
