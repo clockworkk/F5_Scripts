@@ -5,6 +5,47 @@
 
 import bigsuds
 
+#Configuration:
+#Creating a VIP
+configurations = [
+		{
+			#F5 HOST NAME
+			'f5_hostname' : ''
+		}
+		{
+			#General information
+			'name' : '/Common/vip_name',
+			'address' : 'IP ADDRESS',
+			'port' : 'port_address',
+			'protocol' : 'PROTOCOL'
+		}
+		{
+			#wildmask
+			'wildmasks' = 'WILDMASK_ADDRESS'
+		}
+		{
+			#Resources to be used
+			'type' : 'RESOURCE_TYPE_POOL',
+			'default_pool_name' : '/Common/POOL_NAME'
+		}
+		{
+			#Profiles to use
+			'profile_context' : 'PROFILE_CONTEXT_TYPE_ALL',
+			'profile_name' : '/Common/PROFILE_NAME' #example, /Common/tcp
+		}
+		{
+			#Enable and Disable Pool Member:
+			#STATE_ENABLED or STATE_DISABLED
+			'state' : 'VALUE'
+		}
+		{
+			#Load Balancing Methods	
+			#Not Sure best way to do this.
+	]
+			
+
+
+
 # Create a VIP
 # definitions
 # wildmask
@@ -13,7 +54,7 @@ import bigsuds
 def create_a_vip(b):
 	#Change for user input maybe? or possibly options with arguments?
 	b.LocalLB.VirtualServer.create( \
-	definitions = [{'name': '/Common/vip10', 'address': '11.1.1.1', 'port': 80, 'protocol': 'PROTOCOL_TCP'}], \
+	definitions = [{'name': '/Common/vip11', 'address': '11.1.1.1', 'port': 80, 'protocol': 'PROTOCOL_TCP'}], \
 	wildmasks = ['255.255.255.255'], \
 	resources = [{'type': 'RESOURCE_TYPE_POOL', 'default_pool_name': '/Common/testpool'}], \
 	profiles = [[{'profile_context': 'PROFILE_CONTEXT_TYPE_ALL', 'profile_name': '/Common/tcp'}]] \
@@ -57,7 +98,7 @@ def get_list_of_pools(f5_hostname,b):
 #Create a LTM Pool within F5
 #pool_name - is the name of the LTM Pool
 #Load_balancing_method - is the load balancing method that is going to be used:
-#						Examples include: LB_METHOD_LEAST_SESSIONS, LB_METHOD_ROUND_ROBIN, LB_METHOD_LEAST_CONNECTIONS_NODE etc.
+#	Examples include: LB_METHOD_LEAST_SESSIONS, LB_METHOD_ROUND_ROBIN, LB_METHOD_LEAST_CONNECTIONS_NODE etc.
 #address_of_member - is the IP address of the member that you are adding to the pool
 #port_used - is the port that traffic will be on for the member of the pool that you are adding.
 def create_a_pool(b):
@@ -84,25 +125,25 @@ def main():
 	b = bigsuds.BIGIP(hostname = f5_hostname)
 
 	#Check the list of pools (works)
-	#list = get_list_of_pools(f5_hostname,b)
-	#print(list)
+	list = get_list_of_pools(f5_hostname,b)
+	print(list)
 
 	#To create a pool (works)
-	#create_a_pool(b)
-	#list = get_list_of_pools(f5_hostname,b)
-	#print(list)
+	create_a_pool(b)
+	list = get_list_of_pools(f5_hostname,b)
+	print(list)
 
 	#Delete all pools (works)
-	#delete_all_pool(b)
+	delete_all_pool(b)
 	list = get_list_of_pools(f5_hostname,b)
 	print(list)
 
 	##Delete a pool (works)
-	#pool_name = raw_input("Please enter the pool name you want to delete: ")
-	#list_of_pools_to_delete.append(pool_name)
-	#delete_a_pool(list_of_pools_to_delete,b)
-	#list = get_list_of_pools(f5_hostname,b)
-	#print(list)
+	pool_name = raw_input("Please enter the pool name you want to delete: ")
+	list_of_pools_to_delete.append(pool_name)
+	delete_a_pool(list_of_pools_to_delete,b)
+	list = get_list_of_pools(f5_hostname,b)
+	print(list)
 
 	#Add a member to a pool
 	#list_of_pool_names = []
@@ -118,7 +159,7 @@ def main():
 	#array_life.append(list_of_members)
 	#add_members_to_pool(array_life,list_of_pool_names,b)
 
-	create_a_vip(b)
+	#create_a_vip(b)
 	
 
 if __name__ == '__main__':
