@@ -1,0 +1,23 @@
+Better Organization
+Create multiple files for the commands and maybe break them up by tier?
+Tier 2 + 3 is mostly creating/modifying/Deleting pools
+	Create a CLI for this file
+
+Tier 4 is health status for pools and pool members and SSL Certs
+	Create a CLI for this file
+	Find out what kind of information Target wants from this, so many options to choose from
+		(inside LocalLB there are also Statistics for Pools, Pool members which are in the Pool class \
+		Other Classes:
+		ProfileAnalytics: The ProfileAnalytics interface enables you to manipulate a local load balancer's Analytics profile. Use the analytics profile interface to add, modify or remove an analytics profile. Modifying an analytics profile can include: - Setting flags which specify which metrics are collected. - Setting flags which specify notification targets for alerts. - Adding or removing references to profiled virtual servers. - Adding or removing configured alerts. - Adding or removing traffic capture.
+
+SSL Stuff
+ProfileServerSSL: enables you to manipulate a local load balancers server SSL profile
+ProfileClientSSL: enables you to manipulate a local load balancers client SSL profile
+
+Figure out what exactly target wants here
+(Can also get statistics on the SSL profiles etc / do they want this with the health information?)
+
+IMPORTANT
+ProfileAuth : will this allow us to create some sort of auth for f5, currently does not require
+
+
