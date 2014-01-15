@@ -114,6 +114,18 @@ def create_a_pool(b):
 	
 	#Create the pool and add the members
 	b.LocalLB.Pool.create_v2([pool_name],[load_balancing_method],[[{'port':port_used, 'address':address_of_member}]])
+
+#Needs Testing
+def retrieve_all_health_information(b):
+	health_inforamtion = b.LocalLB.Pool.get_all_statistics()
+	return health_information
+
+#Needs Testing
+def retrieve_specified_health_information(b):
+	#get_all_member_statistics takes in an array of strings, which represent the specified pools that you would like to retrieve statistics for.
+	specified_health_information = b.LocalLB.Pool.get_all_member_statistics()
+	return specified_health_information
+
 	
 def main():
 	list_of_pools_to_delete = []
@@ -144,6 +156,9 @@ def main():
 	delete_a_pool(list_of_pools_to_delete,b)
 	list = get_list_of_pools(f5_hostname,b)
 	print(list)
+
+	#Get all pool statistics
+	retrieve_all_health_information(f5_hostname,b)
 
 	#Add a member to a pool
 	#list_of_pool_names = []
