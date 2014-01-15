@@ -48,7 +48,7 @@ def main(options):
     #options.insert_help
 
 	#Hostname
-	hostname = config['f5_hostname']
+    hostname = config['f5_hostname']
     
     #Fix parameters of everything
     if options.add_pool_member:
@@ -58,7 +58,7 @@ def main(options):
     elif options.enable_pool_member:
         enable_pool_member(b)
     elif options.disable_pool_member:
-        disable_pool_member(b):
+        disable_pool_member(b)
     elif options.delete_all_pools:
         delete_all_pools(b)
     elif options.delete_specified_pool:
@@ -70,18 +70,18 @@ def main(options):
     elif options.add_pool_members:
         get_list_of_pools(b)
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     parser = OptionParser()
-    parser.add_option("-apm", action = "store_true", dest= "add_pool_member", help = "Add Pool Member")
-    parser.add_option("-cv", action = "store_true", dest = "create_a_vip", help = "Create a VIP")
-    parser.add_option("-ep", action = "store_true", dest = "enable_pool_member", help = "Enable Pool Member")
-    parser.add_option("-dp", action = "store_true", dest = "disable_pool_member", help = "Disable Pool Member")
-    parser.add_option("-dap", action = "store_true", dest = "delete_all_pools", help = "Delete All Pools")
-    parser.add_option("-dsp", action = "store_true", dest = "delete_specified_pool", help = "Delete Specified Pools")
-    parser.add_option("-cp", action = "store_true", dest = "create_a_pool", help = "Create a Pool")
-    paresr.add_option("-l", action = "store_true", dest = "get_list_pools", help = "Get List of Pools and Members")
-    parser.add_option("-atp", action = "store_true", dest = "add_pool_members", help = "Add members to pool")
+    parser.add_option("--apm", action = "store_true", dest= "add_pool_member", help = "Add Pool Member")
+    parser.add_option("--cv", action = "store_true", dest = "create_a_vip", help = "Create a VIP")
+    parser.add_option("--ep", action = "store_true", dest = "enable_pool_member", help = "Enable Pool Member")
+    parser.add_option("--dp", action = "store_true", dest = "disable_pool_member", help = "Disable Pool Member")
+    parser.add_option("--dap", action = "store_true", dest = "delete_all_pools", help = "Delete All Pools")
+    parser.add_option("--dsp", action = "store_true", dest = "delete_specified_pool", help = "Delete Specified Pools")
+    parser.add_option("--cp", action = "store_true", dest = "create_a_pool", help = "Create a Pool")
+    parser.add_option("--l", action = "store_true", dest = "get_list_pools", help = "Get List of Pools and Members")
+    parser.add_option("--atp", action = "store_true", dest = "add_pool_members", help = "Add members to pool")
 
     (options, args) = parser.parse_args()
 
-	main(options)
+    main(options)
