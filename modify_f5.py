@@ -21,31 +21,40 @@ def create_a_vip(b):
 
 #Enables pool member
 def enable_pool_member(b):
-    pass
-
+    b.LocalLB.Pool.set_member_session_enabled_state(config['vip_name'], [[{'address' : config['ip_address'], 'port' : config['port']}]], session_states = [config['state']])
+    
+#Disables pool Member
 def disable_pool_member(b):
-    pass
+    b.LocalLB.Pool.set_member_session_enabled_state(config['vip_name'], [[{'address' : config['ip_address'], 'port' : config['port']}]], session_states = [config['state']])
 
+#Adds one or multiple members to one or many pools
 def add_members_to_pool(b):
     pass
 
+#Deletes all pools and their information
 def delete_all_pools(b):
-    pass
-
+    lb.LocalLB.Pool.delete_all_pools()
+    print("All Pools have been deleted.")
+    
+#Deletes Specified pools and all of their information
 def delete_specified_pools(b):
-    pass
-
+    b.LocalLB.Pool.delete_pool(pool_names = config['list_of_pools'])
+    
+#Returns a list of pools and their members
 def get_list_of_pools(b):
-    pass
+    pool_lists = b.LocalLB.Pool.get_list()
+    print(pool_lists)
 
 def create_a_pool(b):
-    pass
+	#Look at config['load_balancing_method'] because it is already an array, and it might not have to be an array inside of an array
+    #Loop Thru config['load_balancing_method'] for the one being used. or specify
+    lb_method = ''
+    b.LocalLB.Pool.create_v2([config['pool_name']],[config['load_balancing_method'],[[{'port': config['port'], 'address' : config['ip_address']}]])
+    print("Successfully created %s with Load Balancing Method: %s, IP Address: %s, and Port Number: " ,config['pool_name'], lb_method, config['ip_address'], config['port'])
 
 def main(options):
     #Start the session with the host
     b = bigsuds.BIGIP(hostname = hostname)
-
-    #options.insert_help
 
 	#Hostname
     hostname = config['f5_hostname']
