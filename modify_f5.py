@@ -55,7 +55,7 @@ def create_a_pool(b):
     #Loop Thru config['load_balancing_method'] for the one being used. or specify
     lb_method = ''
     b.LocalLB.Pool.create_v2([config['pool_name']],[config['load_balancing_method'],[[{'port': config['port'], 'address' : config['ip_address']}]])
-    print("Successfully created %s with Load Balancing Method: %s, IP Address: %s, and Port Number: " ,config['pool_name'], lb_method, config['ip_address'], config['port'])
+    print("Successfully created %s with Load Balancing Method: %s, IP Address: %s, and Port Number: %s" ,config['pool_name'], lb_method, config['ip_address'], config['port'])
 
 def main(options):
     
