@@ -8,6 +8,7 @@ config = {
 	'port' : '',
 	'protocol' : '',
 	'wildmask': '',
+	'pool_name' : '',
 
 	#Resources to be used
 	'type' : '', #RESOURCE_TYPE_POOL
@@ -19,11 +20,10 @@ config = {
 
 	#Enable and Disable Value
 	#STATE ENABLED or STATE_DISABLED
-	'enable' : 'STATE_ENABLE',
-	'disable' : 'STATE_DISABLED',
+	'state' : '',
 
 	#Load Balancing Methods
-	'load_balancing_method' = ['LB_METHOD_LEAST_SESSIONS', 
+	'load_balancing_method' : ['LB_METHOD_LEAST_SESSIONS', 
 	'LB_METHOD_ROUND_ROBIN', 
 	'LB_METHOD_LEAST_CONNECTIONS_NODE', 
 	'LB_METHOD_RATIO_MEMBER', 
@@ -47,4 +47,7 @@ config = {
 	'LB_METHOD_RATIO_LEAST_CONNECTION_MEMBER',
 	'LB_METHOD_RATIO_LEAST_CONNECTION_NODE_ADDRESS'
 	]
+
+	#List of Pools
+	'list_of_pools' : []
 }
