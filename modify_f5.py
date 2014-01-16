@@ -5,6 +5,11 @@ import bigsuds
 from config import config
 from optparse import OptionParser
 
+#Global Variables    
+b = bigsuds.BIGIP(hostname = hostname)
+hostname = config['f5_hostname']
+
+
 #Creates a VIP to be used by pools
 def create_a_vip(b):
 	b.LocalLB.VirtualServer.create( \
@@ -53,11 +58,6 @@ def create_a_pool(b):
     print("Successfully created %s with Load Balancing Method: %s, IP Address: %s, and Port Number: " ,config['pool_name'], lb_method, config['ip_address'], config['port'])
 
 def main(options):
-    #Start the session with the host
-    b = bigsuds.BIGIP(hostname = hostname)
-
-	#Hostname
-    hostname = config['f5_hostname']
     
     #Fix parameters of everything
     if options.add_pool_member:
