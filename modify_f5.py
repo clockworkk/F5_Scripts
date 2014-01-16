@@ -5,9 +5,9 @@ import bigsuds
 from config import config
 from optparse import OptionParser
 
-#Global Variables    
+#Global Variables
+hostname = config['f5_hostname']    
 b = bigsuds.BIGIP(hostname = hostname)
-hostname = config['f5_hostname']
 
 
 #Creates a VIP to be used by pools
@@ -54,7 +54,7 @@ def create_a_pool(b):
 	#Look at config['load_balancing_method'] because it is already an array, and it might not have to be an array inside of an array
     #Loop Thru config['load_balancing_method'] for the one being used. or specify
     lb_method = ''
-    b.LocalLB.Pool.create_v2([config['pool_name']],[config['load_balancing_method'],[[{'port': config['port'], 'address' : config['ip_address']}]])
+    b.LocalLB.Pool.create_v2([config['pool_name']],config['load_balancing_method'],[[{'port': config['port'], 'address' : config['ip_address']}]])
     print("Successfully created %s with Load Balancing Method: %s, IP Address: %s, and Port Number: %s" ,config['pool_name'], lb_method, config['ip_address'], config['port'])
 
 def main(options):

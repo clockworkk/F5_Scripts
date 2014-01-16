@@ -46,8 +46,8 @@ config = {
 	'LB_METHOD_RATIO_SESSION',
 	'LB_METHOD_RATIO_LEAST_CONNECTION_MEMBER',
 	'LB_METHOD_RATIO_LEAST_CONNECTION_NODE_ADDRESS'
-	]
+	],
 
 	#List of Pools
-	'list_of_pools' : []
+	'list_of_pools' : ['']
 }
