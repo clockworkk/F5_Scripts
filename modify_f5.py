@@ -109,6 +109,8 @@ def main(options):
         get_list_of_pools(b)
     elif options.create_hc_template:
         create_hc_template(b)
+    elif options.get_hc_templates:
+        get_hc_templates()
 
 if __name__ == '__main__':
 
