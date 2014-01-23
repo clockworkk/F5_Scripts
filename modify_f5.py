@@ -107,6 +107,8 @@ def main(options):
         get_list_of_pools(b)
     elif options.add_pool_members:
         get_list_of_pools(b)
+    elif options.create_hc_template:
+        create_hc_template(b)
 
 if __name__ == '__main__':
 
@@ -120,6 +122,8 @@ if __name__ == '__main__':
     parser.add_option("--cp", action = "store_true", dest = "create_a_pool", help = "Create a Pool")
     parser.add_option("--l", action = "store_true", dest = "get_list_pools", help = "Get List of Pools and Members")
     parser.add_option("--atp", action = "store_true", dest = "add_pool_members", help = "Add members to pool")
+    parser.add_option("--ct", action = "store_true", dest = "create_hc_template", help = "Create a Health Check Template")
+    parser.add_option("--gt", action = "store_true", dest = "get_hc_templates", help = "Get current Health Check Templates")
 
     (options, args) = parser.parse_args()
 
