@@ -63,6 +63,7 @@ def get_hc_templates(b):
     current_templates = b.LocalLB.Monitor.get_template_list()
     print(current_templates)
 
+#Templates run on interval times, so there is no need to call it into action, just assign a template to a pool
 def create_hc_template(b):
     #wildly insane paramters to create a template
     template_attributes = { 
@@ -84,6 +85,28 @@ def create_hc_template(b):
     #Creates a HTTP template that sends a GET ping to all of the address in whatever pool you assign it to
     #Should be a replica of the email that was sent to me prior
     b.LocalLB.Monitor.create_template([template_name], [template_type])
+
+#Sets the destination IP:port values for the specified templates. 
+#NOTE: This should only be done when the monitor templates in "template_names" have NOT been associated to any node addresses or pool members. 
+
+#So in the API theres a couple of different functions that could potentially be used, and each outside the scope of my realm
+#Pool.set_member_monitor_rule
+#Monitor.set_template_destination - Figured out mehh
+
+#This will be in the event of Monitor.set_template_destination
+def assign_template(b):
+    #insert template names in place of ping_test
+    #Obviously can move any hard_coded variables here
+
+    destination = {
+        'address_type': 'ATYPE_STAR_ADDRESS_STAR_PORT',
+        'ipport': {'address': '1.1.1.2', 'port': 80L}
+        }
+
+    template_names = ['ping_test']
+
+    b.LocalLB.Monitor.set_template_destination([template_names], [destinations])
+    print("Template %s assigned to member at IP: %s" % template_names[0], destination['ipport'])
 
 #Main: takes the options and runs the correct definition
 def main(options):
@@ -110,7 +133,9 @@ def main(options):
     elif options.create_hc_template:
         create_hc_template(b)
     elif options.get_hc_templates:
-        get_hc_templates()
+        get_hc_templates(b)
+    elif set_template_destination:
+        set_template_destination(b)
 
 if __name__ == '__main__':
 
@@ -126,6 +151,7 @@ if __name__ == '__main__':
     parser.add_option("--atp", action = "store_true", dest = "add_pool_members", help = "Add members to pool")
     parser.add_option("--ct", action = "store_true", dest = "create_hc_template", help = "Create a Health Check Template")
     parser.add_option("--gt", action = "store_true", dest = "get_hc_templates", help = "Get current Health Check Templates")
+    parser.add_option("--st", action = "store_true", dest = "set_template_destination", help = "Set Template Destination")
 
     (options, args) = parser.parse_args()
 
