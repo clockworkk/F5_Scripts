@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #Philip Middleton
 #Create, Modify, and Delete: VIPs, Pools, and Pool Members
 
@@ -38,7 +39,7 @@ def add_members_to_pool(b):
 
 #Deletes all pools and their information
 def delete_all_pools(b):
-    lb.LocalLB.Pool.delete_all_pools()
+    b.LocalLB.Pool.delete_all_pools()
     print("All Pools have been deleted.")
     
 #Deletes Specified pools and all of their information
@@ -57,6 +58,34 @@ def create_a_pool(b):
     b.LocalLB.Pool.create_v2([config['pool_name']],config['load_balancing_method'],[[{'port': config['port'], 'address' : config['ip_address']}]])
     print("Successfully created %s with Load Balancing Method: %s, IP Address: %s, and Port Number: %s" ,config['pool_name'], lb_method, config['ip_address'], config['port'])
 
+#Prints the current list of templates, user created templates are at the bottom of the list by default
+def get_hc_templates(b):
+    current_templates = b.LocalLB.Monitor.get_template_list()
+    print(current_templates)
+
+def create_hc_template(b):
+    #wildly insane paramters to create a template
+    template_attributes = { 
+        'parent_template' : 'http', #This is the parent template of the example
+        'interval' : 21, #This is a time in seconds
+        'timeout': 61, #This is a time in seconds
+        'dest_ipport' : { 'address_type' : "ATYPE_UNSET", 'ipport' : {'address' : "0.0.0.0", 'port' : long(80)}}, 
+        'is_read_only' : False, 
+        'is_directly_usable' : True
+    }    
+
+    #ping_test is the name of the template
+    #use TTYPE_HTTP
+    template_name = {
+        'template_name': 'ping_test', 
+        'template_type': 'TTYPE_HTTP'
+    }
+
+    #Creates a HTTP template that sends a GET ping to all of the address in whatever pool you assign it to
+    #Should be a replica of the email that was sent to me prior
+    b.LocalLB.Monitor.create_template([template_name], [template_type])
+
+#Main: takes the options and runs the correct definition
 def main(options):
     
     #Fix parameters of everything
@@ -80,8 +109,9 @@ def main(options):
         get_list_of_pools(b)
 
 if __name__ == '__main__':
+
     parser = OptionParser()
-    parser.add_option("--apm", action = "store_true", dest= "add_pool_member", help = "Add Pool Member")
+    parser.add_option("--apm", action = "store_true", dest= "add_pool_member", help = "Add Pool Member, can add many members to many pools")
     parser.add_option("--cv", action = "store_true", dest = "create_a_vip", help = "Create a VIP")
     parser.add_option("--ep", action = "store_true", dest = "enable_pool_member", help = "Enable Pool Member")
     parser.add_option("--dp", action = "store_true", dest = "disable_pool_member", help = "Disable Pool Member")
