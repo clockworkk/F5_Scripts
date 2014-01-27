@@ -7,7 +7,7 @@ config = {
 	'ip_address' : '',
 	'port' : '',
 	'protocol' : '',
-	'wildmask': '',
+	'wildmask' : '',
 	'pool_name' : '',
 
 	#Resources to be used
@@ -49,5 +49,24 @@ config = {
 	],
 
 	#List of Pools
-	'list_of_pools' : ['']
+	'list_of_pools' : [''],
+
+	#Create Template Settings
+	'template_name' : '',
+	'template_type' : 'TTYPE_HTTP', #if only using ping/get for the health chekc use TTYPE_HTTP
+ 	'parent_template' : 'http', #If only using ping/get for the health check use http
+	'interval' : '',
+	'timeout': '',
+	'tempalte_address_type' : 'ATYPE_UNSET',
+	'template_address' : '0.0.0.0',
+	'template_port' : long(80),
+	'is_read_only' : '', #True or False
+	'is_directly_readable' : '', #True or False
+
+	#Assign Template Settings
+	'assing_template_name' : '',
+	'assign_address_type' : 'ATYPE_STAR_ADDRESS_STAR_PORT', #Leave this
+	'assign_address' : '',
+	'assign_port' : '' #Make sure this is a long(port_number)
+
 }

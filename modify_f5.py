@@ -67,19 +67,19 @@ def get_hc_templates(b):
 def create_hc_template(b):
     #wildly insane paramters to create a template
     template_attributes = { 
-        'parent_template' : 'http', #This is the parent template of the example
-        'interval' : 21, #This is a time in seconds
-        'timeout': 61, #This is a time in seconds
-        'dest_ipport' : { 'address_type' : "ATYPE_UNSET", 'ipport' : {'address' : "0.0.0.0", 'port' : long(80)}}, 
-        'is_read_only' : False, 
-        'is_directly_usable' : True
+        'parent_template' : config['parent_template'], #This is the parent template of the example
+        'interval' : config['interval'], #This is a time in seconds
+        'timeout': config['timeout'], #This is a time in seconds
+        'dest_ipport' : { 'address_type' : config['template_address_type'], 'ipport' : { 'address' : config['template_address'], 'port' : config['template_port']}, 
+        'is_read_only' : config['is_read_only'], 
+        'is_directly_usable' : config['is_directly_usable']
     }    
 
     #ping_test is the name of the template
     #use TTYPE_HTTP
     template_name = {
-        'template_name': 'ping_test', 
-        'template_type': 'TTYPE_HTTP'
+        'template_name': config['template_name'], 
+        'template_type': config['template_type']
     }
 
     #Creates a HTTP template that sends a GET ping to all of the address in whatever pool you assign it to
@@ -99,11 +99,11 @@ def assign_template(b):
     #Obviously can move any hard_coded variables here
 
     destination = {
-        'address_type': 'ATYPE_STAR_ADDRESS_STAR_PORT',
-        'ipport': {'address': '1.1.1.2', 'port': 80L}
+        'address_type': config['assign_address_type'],
+        'ipport': {'address': config['assign_address'], 'port': config['assign_port']}
         }
 
-    template_names = ['ping_test']
+    template_names = [config['assign_template_name']]
 
     b.LocalLB.Monitor.set_template_destination([template_names], [destinations])
     print("Template %s assigned to member at IP: %s" % template_names[0], destination['ipport'])
