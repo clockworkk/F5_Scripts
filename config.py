@@ -60,8 +60,8 @@ config = {
 	'tempalte_address_type' : 'ATYPE_UNSET',
 	'template_address' : '0.0.0.0',
 	'template_port' : long(80),
-	'is_read_only' : '', #True or False
-	'is_directly_readable' : '', #True or False
+	'template_is_read_only' : '', #True or False
+	'template_is_directly_readable' : '', #True or False
 
 	#Assign Template Settings
 	'assing_template_name' : '',

@@ -70,9 +70,9 @@ def create_hc_template(b):
         'parent_template' : config['parent_template'], #This is the parent template of the example
         'interval' : config['interval'], #This is a time in seconds
         'timeout': config['timeout'], #This is a time in seconds
-        'dest_ipport' : { 'address_type' : config['template_address_type'], 'ipport' : { 'address' : config['template_address'], 'port' : config['template_port']}, 
-        'is_read_only' : config['is_read_only'], 
-        'is_directly_usable' : config['is_directly_usable']
+        'dest_ipport' : { 'address_type' : config['template_address_type'], 'ipport' : { 'address' : config['template_address'], 'port' : config['template_port']}}, 
+        'is_read_only' : config['template_is_read_only'], 
+        'is_directly_usable' : config['template_is_directly_usable']
     }    
 
     #ping_test is the name of the template
