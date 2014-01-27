@@ -22,3 +22,10 @@ ProfileAuth : will this allow us to create some sort of auth for f5, currently d
 
 Multiple Profiles
 Each profile to use their own conf file?
+
+
+NEXT MEETING
+______________
+
+1. Show them what you did with Health status and template creation
+2.  Ask about SSL, so many options, could be very unpleasant. and not needed.

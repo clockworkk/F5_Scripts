@@ -108,6 +108,13 @@ def assign_template(b):
     b.LocalLB.Monitor.set_template_destination([template_names], [destinations])
     print("Template %s assigned to member at IP: %s" % template_names[0], destination['ipport'])
 
+#Create the specified client SSL profiles, using key and certificate file object names. Certificate and key file objects are managed my the Managment::Key Certificate interface
+#Which is in iControl - > LocalLB -> management.
+#This is probably going to be a bad time
+def create_client_ssl_profiles(b):
+    pass
+#Need more inforamtion to continue
+
 #Main: takes the options and runs the correct definition
 def main(options):
     
